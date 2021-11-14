@@ -21,7 +21,6 @@ string CaesarCipher::decrypt(string s) {
 }
 
 int CaesarCipher::getShift() {
-    isSeeded = false;
     if (!isSeeded) {
         srand(time(NULL));
         isSeeded= true;

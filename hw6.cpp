@@ -5,6 +5,8 @@
 #include <iostream>
 using namespace std;
 
+bool CaesarCipher::isSeeded = false;
+
 int main() {
     CaesarCipher cc;
     string encryptedWord = cc.encrypt("Hello, world!");
