@@ -28,6 +28,11 @@ private:
     int getShift();
     string encryptDecrypt(string, bool);
     bool isPositionInRange(int);
+
+    // declaring static variable to ensure the same shift isn't given every time
+    // the getShift() function is called, per suggestion in assignment spec.
+    // should be made static, but need to figure out how to do this
+    bool isSeeded;
 };
 
 #endif
