@@ -1,3 +1,6 @@
+// Kristen Klimisch
+// CPSC 5011, Seattle University
+
 #include "CaesarCipher.h"
 #include <cstring>
 #include <stdexcept>
@@ -9,7 +12,6 @@ bool CaesarCipher::isSeeded = false;
 CaesarCipher::CaesarCipher() {
     shift = getShift();
 }
-
 
 CaesarCipher::CaesarCipher(const CaesarCipher &cc) {
    shift = cc.shift;
@@ -31,6 +33,16 @@ CaesarCipher& CaesarCipher::operator = (const CaesarCipher &cc){
     return *this;
 }
 
+CaesarCipher CaesarCipher::operator + (const CaesarCipher &cc) {
+    CaesarCipher temp;
+    temp.shift = shift + cc.shift;
+    if (temp.shift > MAX_SHIFT) {
+         temp.shift -= MAX_SHIFT;
+         return temp;
+    }
+    else return temp;
+}
+
 bool CaesarCipher::operator == (const CaesarCipher &cc) {
     if (this == &cc) {
         return true;
@@ -50,6 +62,25 @@ bool CaesarCipher::operator > (const CaesarCipher &cc) {
     if (shift > cc.shift)
         return true;
     else return false;
+}
+
+CaesarCipher& CaesarCipher::operator ++ () {
+    if (shift == MAX_SHIFT) {
+        shift = 1;
+    } else {
+        shift++;
+    }
+    return *this;
+}
+
+CaesarCipher CaesarCipher::operator ++ (int){
+    CaesarCipher temp = *this;
+    if (this->shift == MAX_SHIFT) {
+        this->shift = 1;
+    } else {
+        ++*this;
+    }
+    return temp;
 }
 
 int CaesarCipher::getShift() {
