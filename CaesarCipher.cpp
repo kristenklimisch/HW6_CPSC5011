@@ -3,13 +3,16 @@
 #include <stdexcept>
 #include <iostream>
 
+// initializing static member variable
+bool CaesarCipher::isSeeded = false;
 
 CaesarCipher::CaesarCipher() {
     shift = getShift();
 }
 
+
 CaesarCipher::CaesarCipher(const CaesarCipher &cc) {
-    shift = cc.shift;
+   shift = cc.shift;
 }
 
 string CaesarCipher::encrypt(string s ) {
@@ -18,6 +21,35 @@ string CaesarCipher::encrypt(string s ) {
 
 string CaesarCipher::decrypt(string s) {
     return encryptDecrypt(s, false);
+}
+
+CaesarCipher& CaesarCipher::operator = (const CaesarCipher &cc){
+    if (this == &cc) {
+        return *this;
+    }
+    shift = cc.shift;
+    return *this;
+}
+
+bool CaesarCipher::operator == (const CaesarCipher &cc) {
+    if (this == &cc) {
+        return true;
+    }
+    else if (shift == cc.shift)
+        return true;
+    else return false;
+}
+
+bool CaesarCipher::operator < (const CaesarCipher &cc) {
+    if (shift < cc.shift)
+        return true;
+    else return false;
+}
+
+bool CaesarCipher::operator > (const CaesarCipher &cc) {
+    if (shift > cc.shift)
+        return true;
+    else return false;
 }
 
 int CaesarCipher::getShift() {
@@ -31,7 +63,7 @@ int CaesarCipher::getShift() {
 }
 
 string CaesarCipher::encryptDecrypt(string s, bool encrypt) {
-    // string to be returned after being built by for-each loop below.
+    // string to be returned after being built by for loop below.
     string processed="";
     int n = s.length();
 
